@@ -1,0 +1,17 @@
+﻿@if (Session["RT_Auth"] == null)
+{
+    <text>
+        <form class="navbar-form pull-right" action="@Url.Action("Login", "Home")" method="post">
+            <input id="Username" name="Username" class="span2" type="text" placeholder="Username">
+            <input id="Password" name="Password" class="span2" type="password" placeholder="Password">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </text>
+} else {
+    <text>
+        <form class="navbar-form pull-right" action="@Url.Action("Logout", "Home")" method="post">
+            Logged in as <b>@Session["RT_Name"].ToString() </b>
+            <button type="submit" class="btn btn-primary">Log out</button>
+        </form>
+  </text>
+}

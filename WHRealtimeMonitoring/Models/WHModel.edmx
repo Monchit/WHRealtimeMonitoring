@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="loginicsModel.Store" Alias="Self" Provider="Devart.Data.PostgreSql" ProviderManifestToken="PostgreSQL" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="loginicsModelStoreContainer">
+          <EntitySet Name="tm_diagram_time_chart" EntityType="loginicsModel.Store.tm_diagram_time_chart" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tm_item_summary" EntityType="loginicsModel.Store.tm_item_summary" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tm_user" EntityType="loginicsModel.Store.tm_user" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tt_packing_order_nics" EntityType="loginicsModel.Store.tt_packing_order_nics" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tt_picking_order_nics" EntityType="loginicsModel.Store.tt_picking_order_nics" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tt_realtime_monitoring" EntityType="loginicsModel.Store.tt_realtime_monitoring" store:Type="Tables" Schema="public" />
+          <EntitySet Name="w_zone" EntityType="loginicsModel.Store.w_zone" store:Type="Tables" Schema="public" />
+        </EntityContainer>
+        <EntityType Name="tm_diagram_time_chart">
+          <Key>
+            <PropertyRef Name="cust_no" />
+            <PropertyRef Name="process_no" />
+            <PropertyRef Name="cycle_no" />
+            <PropertyRef Name="shipto" />
+          </Key>
+          <Property Name="cust_no" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="cust_type" Type="varchar" MaxLength="10" />
+          <Property Name="process_no" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="start_time" Type="varchar" MaxLength="4" />
+          <Property Name="finished_time" Type="varchar" MaxLength="4" />
+          <Property Name="cycle_no" Type="int" Nullable="false" />
+          <Property Name="prepare_n_date" Type="int" />
+          <Property Name="update_date" Type="varchar" MaxLength="8" />
+          <Property Name="update_time" Type="varchar" MaxLength="6" />
+          <Property Name="username_id" Type="varchar" MaxLength="10" />
+          <Property Name="shipto" Type="varchar" Nullable="false" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tm_item_summary">
+          <Key>
+            <PropertyRef Name="finished_goods_code" />
+            <PropertyRef Name="customer_code" />
+          </Key>
+          <Property Name="transfer_date" Type="int" />
+          <Property Name="transfer_time" Type="int" />
+          <Property Name="complete_sign" Type="char" MaxLength="1" />
+          <Property Name="finished_goods_code" Type="char" Nullable="false" MaxLength="20" />
+          <Property Name="record_status" Type="char" MaxLength="1" />
+          <Property Name="customer_type" Type="char" MaxLength="6" />
+          <Property Name="customer_code" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="cust_name" Type="char" MaxLength="20" />
+          <Property Name="ship_to" Type="char" MaxLength="8" />
+          <Property Name="delivery_place_name1" Type="char" MaxLength="50" />
+          <Property Name="organ_name" Type="char" MaxLength="20" />
+          <Property Name="line_group" Type="char" MaxLength="3" />
+          <Property Name="line_no" Type="char" MaxLength="3" />
+          <Property Name="zone" Type="char" MaxLength="5" />
+          <Property Name="plant_code" Type="char" MaxLength="4" />
+          <Property Name="product_code" Type="char" MaxLength="4" />
+          <Property Name="product_name" Type="char" MaxLength="40" />
+          <Property Name="mp_code" Type="char" MaxLength="1" />
+          <Property Name="customer_item" Type="char" MaxLength="30" />
+          <Property Name="spec_description" Type="char" MaxLength="40" />
+          <Property Name="fg_weight" Type="double precision" />
+          <Property Name="box_size" Type="char" MaxLength="10" />
+          <Property Name="packing_type" Type="char" MaxLength="10" />
+          <Property Name="pack_qty" Type="double precision" />
+          <Property Name="box_qty" Type="double precision" />
+          <Property Name="location_no" Type="char" MaxLength="12" />
+          <Property Name="compound" Type="char" MaxLength="8" />
+          <Property Name="kouza" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tm_user">
+          <Key>
+            <PropertyRef Name="location_cd" />
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="location_cd" Type="char" Nullable="false" MaxLength="3" />
+          <Property Name="user_id" Type="char" Nullable="false" MaxLength="6" />
+          <Property Name="first_name" Type="char" MaxLength="12" />
+          <Property Name="last_name" Type="char" MaxLength="12" />
+          <Property Name="admin_sign" Type="char" MaxLength="1" />
+          <Property Name="pw" Type="char" MaxLength="10" />
+          <Property Name="entry_date" Type="char" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="tt_packing_order_nics">
+          <Key>
+            <PropertyRef Name="picking_order_no" />
+            <PropertyRef Name="picking_order_line_no" />
+          </Key>
+          <Property Name="data_tran_from" Type="char" MaxLength="5" />
+          <Property Name="data_tran_to" Type="char" MaxLength="5" />
+          <Property Name="company_code" Type="char" MaxLength="5" />
+          <Property Name="picking_order_no" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="picking_order_line_no" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="customer_order_no" Type="char" MaxLength="10" />
+          <Property Name="set_item_co_line_no" Type="char" MaxLength="2" />
+          <Property Name="transaction_no" Type="char" MaxLength="10" />
+          <Property Name="data_tran_date" Type="int" />
+          <Property Name="data_tran_time" Type="int" />
+          <Property Name="data_code" Type="char" MaxLength="3" />
+          <Property Name="air_boat_sign" Type="char" MaxLength="1" />
+          <Property Name="customer_code" Type="char" MaxLength="5" />
+          <Property Name="export_ship_to_port" Type="char" MaxLength="4" />
+          <Property Name="customer_item" Type="char" MaxLength="30" />
+          <Property Name="finished_goods_code" Type="char" MaxLength="20" />
+          <Property Name="plant_code" Type="char" MaxLength="4" />
+          <Property Name="stock_location" Type="char" MaxLength="4" />
+          <Property Name="stock_account_no" Type="char" MaxLength="5" />
+          <Property Name="location_no" Type="char" MaxLength="12" />
+          <Property Name="customer_po_no" Type="char" MaxLength="25" />
+          <Property Name="customer_po_line_no" Type="char" MaxLength="4" />
+          <Property Name="co_due_date" Type="int" />
+          <Property Name="stk_loc_shipment_due_date" Type="int" />
+          <Property Name="etd" Type="int" />
+          <Property Name="eta" Type="int" />
+          <Property Name="co_qty" Type="double precision" />
+          <Property Name="picking_order_qty" Type="double precision" />
+          <Property Name="picking_order_qty_result" Type="double precision" />
+          <Property Name="issuing_order_type" Type="char" MaxLength="1" />
+          <Property Name="stock_allocation_sign" Type="char" MaxLength="1" />
+          <Property Name="box_qty" Type="double precision" />
+          <Property Name="pack_qty" Type="double precision" />
+          <Property Name="picking_order_type" Type="char" MaxLength="1" />
+          <Property Name="complete_sign" Type="char" MaxLength="1" />
+          <Property Name="disposal_sign" Type="char" MaxLength="1" />
+          <Property Name="header_count" Type="int" />
+          <Property Name="line_no_count" Type="int" />
+          <Property Name="finished_goods_weight" Type="double precision" />
+          <Property Name="product_code" Type="char" MaxLength="4" />
+          <Property Name="product_name" Type="char" MaxLength="30" />
+          <Property Name="customer_memo" Type="char" MaxLength="15" />
+          <Property Name="parts_no" Type="char" MaxLength="42" />
+          <Property Name="parts_name" Type="char" MaxLength="42" />
+        </EntityType>
+        <EntityType Name="tt_picking_order_nics">
+          <Key>
+            <PropertyRef Name="picking_order_no" />
+            <PropertyRef Name="picking_order_line_no" />
+          </Key>
+          <Property Name="data_tran_from" Type="char" MaxLength="5" />
+          <Property Name="data_tran_to" Type="char" MaxLength="5" />
+          <Property Name="company_code" Type="char" MaxLength="5" />
+          <Property Name="picking_order_no" Type="char" Nullable="false" MaxLength="8" />
+          <Property Name="picking_order_line_no" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="customer_order_no" Type="char" MaxLength="10" />
+          <Property Name="set_item_co_line_no" Type="char" MaxLength="2" />
+          <Property Name="transaction_no" Type="char" MaxLength="10" />
+          <Property Name="data_tran_date" Type="int" />
+          <Property Name="data_tran_time" Type="int" />
+          <Property Name="data_code" Type="char" MaxLength="3" />
+          <Property Name="user_name" Type="char" MaxLength="20" />
+          <Property Name="customer_code" Type="char" MaxLength="5" />
+          <Property Name="delivery_place" Type="char" MaxLength="8" />
+          <Property Name="customer_item" Type="char" MaxLength="30" />
+          <Property Name="finished_goods_code" Type="char" MaxLength="20" />
+          <Property Name="co_due_date" Type="int" />
+          <Property Name="co_due_time" Type="int" />
+          <Property Name="issuing_planed_date" Type="int" />
+          <Property Name="customer_po_no" Type="char" MaxLength="25" />
+          <Property Name="customer_po_line_no" Type="char" MaxLength="4" />
+          <Property Name="stock_account_no" Type="char" MaxLength="5" />
+          <Property Name="location_no" Type="char" MaxLength="12" />
+          <Property Name="picking_order_qty" Type="double precision" />
+          <Property Name="picking_order_qty_result" Type="double precision" />
+          <Property Name="issuing_order_type" Type="char" MaxLength="1" />
+          <Property Name="stock_allocation_sign" Type="char" MaxLength="1" />
+          <Property Name="sales_unit_price" Type="double precision" />
+          <Property Name="delivery_place_group" Type="char" MaxLength="8" />
+          <Property Name="box_qty" Type="double precision" />
+          <Property Name="pack_qty" Type="double precision" />
+          <Property Name="code_type" Type="char" MaxLength="3" />
+          <Property Name="customer_item_nickname" Type="char" MaxLength="5" />
+          <Property Name="kanban_qty" Type="int" />
+          <Property Name="second_picking_no" Type="char" MaxLength="7" />
+          <Property Name="kanban_sign" Type="char" MaxLength="1" />
+          <Property Name="co_qty" Type="double precision" />
+          <Property Name="plant_code" Type="char" MaxLength="4" />
+          <Property Name="stock_location" Type="char" MaxLength="4" />
+          <Property Name="set_item_sign" Type="char" MaxLength="1" />
+          <Property Name="set_item_child_parts_number" Type="char" MaxLength="30" />
+          <Property Name="shipped_date" Type="int" />
+          <Property Name="shipped_time" Type="int" />
+          <Property Name="export_ship_to_port" Type="char" MaxLength="4" />
+          <Property Name="air_boat_sign" Type="char" MaxLength="1" />
+          <Property Name="ship_to_stock_location" Type="char" MaxLength="4" />
+          <Property Name="complete_sign" Type="char" MaxLength="1" />
+          <Property Name="tran_of_control_no" Type="char" MaxLength="10" />
+          <Property Name="re_inspection_no" Type="char" MaxLength="10" />
+          <Property Name="re_inspection_line" Type="char" MaxLength="2" />
+          <Property Name="tran_of_ctrl_to_main_stock_loc" Type="char" MaxLength="4" />
+          <Property Name="tran_of_control_to_stock_account_no" Type="char" MaxLength="5" />
+          <Property Name="tran_of_control_to_customer_code" Type="char" MaxLength="5" />
+          <Property Name="disposal_sign" Type="char" MaxLength="1" />
+          <Property Name="picking_order_type" Type="char" MaxLength="1" />
+          <Property Name="hedder_count" Type="int" />
+          <Property Name="line_no_count" Type="int" />
+          <Property Name="issuing_order_qty" Type="double precision" />
+          <Property Name="tag_no" Type="char" MaxLength="11" />
+          <Property Name="transfer_ims_no" Type="char" MaxLength="15" />
+          <Property Name="transfer_finished_goods_code" Type="char" MaxLength="20" />
+          <Property Name="case_no" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tt_realtime_monitoring">
+          <Key>
+            <PropertyRef Name="tag_no" />
+            <PropertyRef Name="process_no" />
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="tag_no" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="process_no" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" />
+          <Property Name="transfer_date" Type="varchar" MaxLength="8" />
+          <Property Name="transfer_time" Type="varchar" MaxLength="6" />
+          <Property Name="prepare_n_date" Type="int" />
+          <Property Name="finished_time" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="w_zone">
+          <Key>
+            <PropertyRef Name="cust_num" />
+          </Key>
+          <Property Name="cust_num" Type="char" Nullable="false" MaxLength="7" />
+          <Property Name="cust_name" Type="char" MaxLength="50" />
+          <Property Name="zone" Type="char" MaxLength="2" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="loginicsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="loginicsEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tm_item_summary" EntityType="loginicsModel.tm_item_summary" />
+          <EntitySet Name="tm_user" EntityType="loginicsModel.tm_user" />
+          <EntitySet Name="tt_packing_order_nics" EntityType="loginicsModel.tt_packing_order_nics" />
+          <EntitySet Name="tt_picking_order_nics" EntityType="loginicsModel.tt_picking_order_nics" />
+          <EntitySet Name="tt_realtime_monitoring" EntityType="loginicsModel.tt_realtime_monitoring" />
+          <EntitySet Name="w_zone" EntityType="loginicsModel.w_zone" />
+          <EntitySet Name="tm_diagram_time_chart" EntityType="loginicsModel.tm_diagram_time_chart" />
+        </EntityContainer>
+        <EntityType Name="tm_item_summary">
+          <Key>
+            <PropertyRef Name="finished_goods_code" />
+            <PropertyRef Name="customer_code" />
+          </Key>
+          <Property Name="transfer_date" Type="Int32" />
+          <Property Name="transfer_time" Type="Int32" />
+          <Property Name="complete_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="finished_goods_code" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="record_status" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="customer_type" Type="String" MaxLength="6" Unicode="false" FixedLength="true" />
+          <Property Name="customer_code" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="cust_name" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="ship_to" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+          <Property Name="delivery_place_name1" Type="String" MaxLength="50" Unicode="false" FixedLength="true" />
+          <Property Name="organ_name" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="line_group" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="line_no" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="zone" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="plant_code" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="product_code" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="product_name" Type="String" MaxLength="40" Unicode="false" FixedLength="true" />
+          <Property Name="mp_code" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="customer_item" Type="String" MaxLength="30" Unicode="false" FixedLength="true" />
+          <Property Name="spec_description" Type="String" MaxLength="40" Unicode="false" FixedLength="true" />
+          <Property Name="fg_weight" Type="Double" />
+          <Property Name="box_size" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="packing_type" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="pack_qty" Type="Double" />
+          <Property Name="box_qty" Type="Double" />
+          <Property Name="location_no" Type="String" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="compound" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+          <Property Name="kouza" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tm_user">
+          <Key>
+            <PropertyRef Name="location_cd" />
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="location_cd" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="6" Unicode="false" FixedLength="true" />
+          <Property Name="first_name" Type="String" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="last_name" Type="String" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="admin_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="pw" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="entry_date" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tt_packing_order_nics">
+          <Key>
+            <PropertyRef Name="picking_order_no" />
+            <PropertyRef Name="picking_order_line_no" />
+          </Key>
+          <Property Name="data_tran_from" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="data_tran_to" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="company_code" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_no" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_line_no" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="customer_order_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="set_item_co_line_no" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="transaction_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="data_tran_date" Type="Int32" />
+          <Property Name="data_tran_time" Type="Int32" />
+          <Property Name="data_code" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="air_boat_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="customer_code" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="export_ship_to_port" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="customer_item" Type="String" MaxLength="30" Unicode="false" FixedLength="true" />
+          <Property Name="finished_goods_code" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="plant_code" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="stock_location" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="stock_account_no" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="location_no" Type="String" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="customer_po_no" Type="String" MaxLength="25" Unicode="false" FixedLength="true" />
+          <Property Name="customer_po_line_no" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="co_due_date" Type="Int32" />
+          <Property Name="stk_loc_shipment_due_date" Type="Int32" />
+          <Property Name="etd" Type="Int32" />
+          <Property Name="eta" Type="Int32" />
+          <Property Name="co_qty" Type="Double" />
+          <Property Name="picking_order_qty" Type="Double" />
+          <Property Name="picking_order_qty_result" Type="Double" />
+          <Property Name="issuing_order_type" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="stock_allocation_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="box_qty" Type="Double" />
+          <Property Name="pack_qty" Type="Double" />
+          <Property Name="picking_order_type" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="complete_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="disposal_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="header_count" Type="Int32" />
+          <Property Name="line_no_count" Type="Int32" />
+          <Property Name="finished_goods_weight" Type="Double" />
+          <Property Name="product_code" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="product_name" Type="String" MaxLength="30" Unicode="false" FixedLength="true" />
+          <Property Name="customer_memo" Type="String" MaxLength="15" Unicode="false" FixedLength="true" />
+          <Property Name="parts_no" Type="String" MaxLength="42" Unicode="false" FixedLength="true" />
+          <Property Name="parts_name" Type="String" MaxLength="42" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tt_picking_order_nics">
+          <Key>
+            <PropertyRef Name="picking_order_no" />
+            <PropertyRef Name="picking_order_line_no" />
+          </Key>
+          <Property Name="data_tran_from" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="data_tran_to" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="company_code" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_no" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_line_no" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="customer_order_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="set_item_co_line_no" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="transaction_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="data_tran_date" Type="Int32" />
+          <Property Name="data_tran_time" Type="Int32" />
+          <Property Name="data_code" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="user_name" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="customer_code" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="delivery_place" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+          <Property Name="customer_item" Type="String" MaxLength="30" Unicode="false" FixedLength="true" />
+          <Property Name="finished_goods_code" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="co_due_date" Type="Int32" />
+          <Property Name="co_due_time" Type="Int32" />
+          <Property Name="issuing_planed_date" Type="Int32" />
+          <Property Name="customer_po_no" Type="String" MaxLength="25" Unicode="false" FixedLength="true" />
+          <Property Name="customer_po_line_no" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="stock_account_no" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="location_no" Type="String" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_qty" Type="Double" />
+          <Property Name="picking_order_qty_result" Type="Double" />
+          <Property Name="issuing_order_type" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="stock_allocation_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="sales_unit_price" Type="Double" />
+          <Property Name="delivery_place_group" Type="String" MaxLength="8" Unicode="false" FixedLength="true" />
+          <Property Name="box_qty" Type="Double" />
+          <Property Name="pack_qty" Type="Double" />
+          <Property Name="code_type" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="customer_item_nickname" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="kanban_qty" Type="Int32" />
+          <Property Name="second_picking_no" Type="String" MaxLength="7" Unicode="false" FixedLength="true" />
+          <Property Name="kanban_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="co_qty" Type="Double" />
+          <Property Name="plant_code" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="stock_location" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="set_item_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="set_item_child_parts_number" Type="String" MaxLength="30" Unicode="false" FixedLength="true" />
+          <Property Name="shipped_date" Type="Int32" />
+          <Property Name="shipped_time" Type="Int32" />
+          <Property Name="export_ship_to_port" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="air_boat_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ship_to_stock_location" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="complete_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="tran_of_control_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="re_inspection_no" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="re_inspection_line" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="tran_of_ctrl_to_main_stock_loc" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="tran_of_control_to_stock_account_no" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="tran_of_control_to_customer_code" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="disposal_sign" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="picking_order_type" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="hedder_count" Type="Int32" />
+          <Property Name="line_no_count" Type="Int32" />
+          <Property Name="issuing_order_qty" Type="Double" />
+          <Property Name="tag_no" Type="String" MaxLength="11" Unicode="false" FixedLength="true" />
+          <Property Name="transfer_ims_no" Type="String" MaxLength="15" Unicode="false" FixedLength="true" />
+          <Property Name="transfer_finished_goods_code" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+          <Property Name="case_no" Type="String" MaxLength="20" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tt_realtime_monitoring">
+          <Key>
+            <PropertyRef Name="tag_no" />
+            <PropertyRef Name="process_no" />
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="tag_no" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="process_no" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="transfer_date" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
+          <Property Name="transfer_time" Type="String" MaxLength="6" Unicode="true" FixedLength="false" />
+          <Property Name="prepare_n_date" Type="Int32" />
+          <Property Name="finished_time" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="w_zone">
+          <Key>
+            <PropertyRef Name="cust_num" />
+          </Key>
+          <Property Name="cust_num" Type="String" Nullable="false" MaxLength="7" Unicode="false" FixedLength="true" />
+          <Property Name="cust_name" Type="String" MaxLength="50" Unicode="false" FixedLength="true" />
+          <Property Name="zone" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tm_diagram_time_chart">
+          <Key>
+            <PropertyRef Name="cust_no" />
+            <PropertyRef Name="process_no" />
+            <PropertyRef Name="cycle_no" />
+            <PropertyRef Name="shipto" />
+          </Key>
+          <Property Type="String" Name="cust_no" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cust_type" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="process_no" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="start_time" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="finished_time" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="cycle_no" Nullable="false" />
+          <Property Type="Int32" Name="prepare_n_date" />
+          <Property Type="String" Name="update_date" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="update_time" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="username_id" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="shipto" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="loginicsModelStoreContainer" CdmEntityContainer="loginicsEntities">
+          <EntitySetMapping Name="tm_item_summary">
+            <EntityTypeMapping TypeName="loginicsModel.tm_item_summary">
+              <MappingFragment StoreEntitySet="tm_item_summary">
+                <ScalarProperty Name="transfer_date" ColumnName="transfer_date" />
+                <ScalarProperty Name="transfer_time" ColumnName="transfer_time" />
+                <ScalarProperty Name="complete_sign" ColumnName="complete_sign" />
+                <ScalarProperty Name="finished_goods_code" ColumnName="finished_goods_code" />
+                <ScalarProperty Name="record_status" ColumnName="record_status" />
+                <ScalarProperty Name="customer_type" ColumnName="customer_type" />
+                <ScalarProperty Name="customer_code" ColumnName="customer_code" />
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="ship_to" ColumnName="ship_to" />
+                <ScalarProperty Name="delivery_place_name1" ColumnName="delivery_place_name1" />
+                <ScalarProperty Name="organ_name" ColumnName="organ_name" />
+                <ScalarProperty Name="line_group" ColumnName="line_group" />
+                <ScalarProperty Name="line_no" ColumnName="line_no" />
+                <ScalarProperty Name="zone" ColumnName="zone" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="mp_code" ColumnName="mp_code" />
+                <ScalarProperty Name="customer_item" ColumnName="customer_item" />
+                <ScalarProperty Name="spec_description" ColumnName="spec_description" />
+                <ScalarProperty Name="fg_weight" ColumnName="fg_weight" />
+                <ScalarProperty Name="box_size" ColumnName="box_size" />
+                <ScalarProperty Name="packing_type" ColumnName="packing_type" />
+                <ScalarProperty Name="pack_qty" ColumnName="pack_qty" />
+                <ScalarProperty Name="box_qty" ColumnName="box_qty" />
+                <ScalarProperty Name="location_no" ColumnName="location_no" />
+                <ScalarProperty Name="compound" ColumnName="compound" />
+                <ScalarProperty Name="kouza" ColumnName="kouza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_user">
+            <EntityTypeMapping TypeName="loginicsModel.tm_user">
+              <MappingFragment StoreEntitySet="tm_user">
+                <ScalarProperty Name="location_cd" ColumnName="location_cd" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="admin_sign" ColumnName="admin_sign" />
+                <ScalarProperty Name="pw" ColumnName="pw" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tt_packing_order_nics">
+            <EntityTypeMapping TypeName="loginicsModel.tt_packing_order_nics">
+              <MappingFragment StoreEntitySet="tt_packing_order_nics">
+                <ScalarProperty Name="data_tran_from" ColumnName="data_tran_from" />
+                <ScalarProperty Name="data_tran_to" ColumnName="data_tran_to" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="picking_order_no" ColumnName="picking_order_no" />
+                <ScalarProperty Name="picking_order_line_no" ColumnName="picking_order_line_no" />
+                <ScalarProperty Name="customer_order_no" ColumnName="customer_order_no" />
+                <ScalarProperty Name="set_item_co_line_no" ColumnName="set_item_co_line_no" />
+                <ScalarProperty Name="transaction_no" ColumnName="transaction_no" />
+                <ScalarProperty Name="data_tran_date" ColumnName="data_tran_date" />
+                <ScalarProperty Name="data_tran_time" ColumnName="data_tran_time" />
+                <ScalarProperty Name="data_code" ColumnName="data_code" />
+                <ScalarProperty Name="air_boat_sign" ColumnName="air_boat_sign" />
+                <ScalarProperty Name="customer_code" ColumnName="customer_code" />
+                <ScalarProperty Name="export_ship_to_port" ColumnName="export_ship_to_port" />
+                <ScalarProperty Name="customer_item" ColumnName="customer_item" />
+                <ScalarProperty Name="finished_goods_code" ColumnName="finished_goods_code" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="stock_location" ColumnName="stock_location" />
+                <ScalarProperty Name="stock_account_no" ColumnName="stock_account_no" />
+                <ScalarProperty Name="location_no" ColumnName="location_no" />
+                <ScalarProperty Name="customer_po_no" ColumnName="customer_po_no" />
+                <ScalarProperty Name="customer_po_line_no" ColumnName="customer_po_line_no" />
+                <ScalarProperty Name="co_due_date" ColumnName="co_due_date" />
+                <ScalarProperty Name="stk_loc_shipment_due_date" ColumnName="stk_loc_shipment_due_date" />
+                <ScalarProperty Name="etd" ColumnName="etd" />
+                <ScalarProperty Name="eta" ColumnName="eta" />
+                <ScalarProperty Name="co_qty" ColumnName="co_qty" />
+                <ScalarProperty Name="picking_order_qty" ColumnName="picking_order_qty" />
+                <ScalarProperty Name="picking_order_qty_result" ColumnName="picking_order_qty_result" />
+                <ScalarProperty Name="issuing_order_type" ColumnName="issuing_order_type" />
+                <ScalarProperty Name="stock_allocation_sign" ColumnName="stock_allocation_sign" />
+                <ScalarProperty Name="box_qty" ColumnName="box_qty" />
+                <ScalarProperty Name="pack_qty" ColumnName="pack_qty" />
+                <ScalarProperty Name="picking_order_type" ColumnName="picking_order_type" />
+                <ScalarProperty Name="complete_sign" ColumnName="complete_sign" />
+                <ScalarProperty Name="disposal_sign" ColumnName="disposal_sign" />
+                <ScalarProperty Name="header_count" ColumnName="header_count" />
+                <ScalarProperty Name="line_no_count" ColumnName="line_no_count" />
+                <ScalarProperty Name="finished_goods_weight" ColumnName="finished_goods_weight" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="customer_memo" ColumnName="customer_memo" />
+                <ScalarProperty Name="parts_no" ColumnName="parts_no" />
+                <ScalarProperty Name="parts_name" ColumnName="parts_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tt_picking_order_nics">
+            <EntityTypeMapping TypeName="loginicsModel.tt_picking_order_nics">
+              <MappingFragment StoreEntitySet="tt_picking_order_nics">
+                <ScalarProperty Name="data_tran_from" ColumnName="data_tran_from" />
+                <ScalarProperty Name="data_tran_to" ColumnName="data_tran_to" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="picking_order_no" ColumnName="picking_order_no" />
+                <ScalarProperty Name="picking_order_line_no" ColumnName="picking_order_line_no" />
+                <ScalarProperty Name="customer_order_no" ColumnName="customer_order_no" />
+                <ScalarProperty Name="set_item_co_line_no" ColumnName="set_item_co_line_no" />
+                <ScalarProperty Name="transaction_no" ColumnName="transaction_no" />
+                <ScalarProperty Name="data_tran_date" ColumnName="data_tran_date" />
+                <ScalarProperty Name="data_tran_time" ColumnName="data_tran_time" />
+                <ScalarProperty Name="data_code" ColumnName="data_code" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="customer_code" ColumnName="customer_code" />
+                <ScalarProperty Name="delivery_place" ColumnName="delivery_place" />
+                <ScalarProperty Name="customer_item" ColumnName="customer_item" />
+                <ScalarProperty Name="finished_goods_code" ColumnName="finished_goods_code" />
+                <ScalarProperty Name="co_due_date" ColumnName="co_due_date" />
+                <ScalarProperty Name="co_due_time" ColumnName="co_due_time" />
+                <ScalarProperty Name="issuing_planed_date" ColumnName="issuing_planed_date" />
+                <ScalarProperty Name="customer_po_no" ColumnName="customer_po_no" />
+                <ScalarProperty Name="customer_po_line_no" ColumnName="customer_po_line_no" />
+                <ScalarProperty Name="stock_account_no" ColumnName="stock_account_no" />
+                <ScalarProperty Name="location_no" ColumnName="location_no" />
+                <ScalarProperty Name="picking_order_qty" ColumnName="picking_order_qty" />
+                <ScalarProperty Name="picking_order_qty_result" ColumnName="picking_order_qty_result" />
+                <ScalarProperty Name="issuing_order_type" ColumnName="issuing_order_type" />
+                <ScalarProperty Name="stock_allocation_sign" ColumnName="stock_allocation_sign" />
+                <ScalarProperty Name="sales_unit_price" ColumnName="sales_unit_price" />
+                <ScalarProperty Name="delivery_place_group" ColumnName="delivery_place_group" />
+                <ScalarProperty Name="box_qty" ColumnName="box_qty" />
+                <ScalarProperty Name="pack_qty" ColumnName="pack_qty" />
+                <ScalarProperty Name="code_type" ColumnName="code_type" />
+                <ScalarProperty Name="customer_item_nickname" ColumnName="customer_item_nickname" />
+                <ScalarProperty Name="kanban_qty" ColumnName="kanban_qty" />
+                <ScalarProperty Name="second_picking_no" ColumnName="second_picking_no" />
+                <ScalarProperty Name="kanban_sign" ColumnName="kanban_sign" />
+                <ScalarProperty Name="co_qty" ColumnName="co_qty" />
+                <ScalarProperty Name="plant_code" ColumnName="plant_code" />
+                <ScalarProperty Name="stock_location" ColumnName="stock_location" />
+                <ScalarProperty Name="set_item_sign" ColumnName="set_item_sign" />
+                <ScalarProperty Name="set_item_child_parts_number" ColumnName="set_item_child_parts_number" />
+                <ScalarProperty Name="shipped_date" ColumnName="shipped_date" />
+                <ScalarProperty Name="shipped_time" ColumnName="shipped_time" />
+                <ScalarProperty Name="export_ship_to_port" ColumnName="export_ship_to_port" />
+                <ScalarProperty Name="air_boat_sign" ColumnName="air_boat_sign" />
+                <ScalarProperty Name="ship_to_stock_location" ColumnName="ship_to_stock_location" />
+                <ScalarProperty Name="complete_sign" ColumnName="complete_sign" />
+                <ScalarProperty Name="tran_of_control_no" ColumnName="tran_of_control_no" />
+                <ScalarProperty Name="re_inspection_no" ColumnName="re_inspection_no" />
+                <ScalarProperty Name="re_inspection_line" ColumnName="re_inspection_line" />
+                <ScalarProperty Name="tran_of_ctrl_to_main_stock_loc" ColumnName="tran_of_ctrl_to_main_stock_loc" />
+                <ScalarProperty Name="tran_of_control_to_stock_account_no" ColumnName="tran_of_control_to_stock_account_no" />
+                <ScalarProperty Name="tran_of_control_to_customer_code" ColumnName="tran_of_control_to_customer_code" />
+                <ScalarProperty Name="disposal_sign" ColumnName="disposal_sign" />
+                <ScalarProperty Name="picking_order_type" ColumnName="picking_order_type" />
+                <ScalarProperty Name="hedder_count" ColumnName="hedder_count" />
+                <ScalarProperty Name="line_no_count" ColumnName="line_no_count" />
+                <ScalarProperty Name="issuing_order_qty" ColumnName="issuing_order_qty" />
+                <ScalarProperty Name="tag_no" ColumnName="tag_no" />
+                <ScalarProperty Name="transfer_ims_no" ColumnName="transfer_ims_no" />
+                <ScalarProperty Name="transfer_finished_goods_code" ColumnName="transfer_finished_goods_code" />
+                <ScalarProperty Name="case_no" ColumnName="case_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tt_realtime_monitoring">
+            <EntityTypeMapping TypeName="loginicsModel.tt_realtime_monitoring">
+              <MappingFragment StoreEntitySet="tt_realtime_monitoring">
+                <ScalarProperty Name="tag_no" ColumnName="tag_no" />
+                <ScalarProperty Name="process_no" ColumnName="process_no" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="transfer_date" ColumnName="transfer_date" />
+                <ScalarProperty Name="transfer_time" ColumnName="transfer_time" />
+                <ScalarProperty Name="prepare_n_date" ColumnName="prepare_n_date" />
+                <ScalarProperty Name="finished_time" ColumnName="finished_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="w_zone">
+            <EntityTypeMapping TypeName="loginicsModel.w_zone">
+              <MappingFragment StoreEntitySet="w_zone">
+                <ScalarProperty Name="cust_num" ColumnName="cust_num" />
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="zone" ColumnName="zone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tm_diagram_time_chart">
+            <EntityTypeMapping TypeName="loginicsModel.tm_diagram_time_chart">
+              <MappingFragment StoreEntitySet="tm_diagram_time_chart">
+                <ScalarProperty Name="shipto" ColumnName="shipto" />
+                <ScalarProperty Name="username_id" ColumnName="username_id" />
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="prepare_n_date" ColumnName="prepare_n_date" />
+                <ScalarProperty Name="cycle_no" ColumnName="cycle_no" />
+                <ScalarProperty Name="finished_time" ColumnName="finished_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="process_no" ColumnName="process_no" />
+                <ScalarProperty Name="cust_type" ColumnName="cust_type" />
+                <ScalarProperty Name="cust_no" ColumnName="cust_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,279 @@
+﻿@*<h3>@ViewBag.Title</h3>*@
+<meta http-equiv="refresh" content="60">
+<style type="text/css">
+    /* fix the size of the pager */
+    input.ui-pg-input { width: auto; }
+    select.ui-pg-selbox {
+        padding: 0;
+        width: auto;
+    }
+    .ui-jqgrid tr.jqgrow td { white-space: normal !important; }
+    a:link {color:#FF0000;}    /* unvisited link */
+    a:visited {color:#FF0000;} /* visited link */
+    a:hover {color:#FF00FF;}   /* mouse over link */
+    a:active {color:#0000FF;}  /* selected link */
+</style>
+<script type="text/javascript">
+    function SetGraph() {
+        options = {
+            chart: {
+                renderTo: 'divGraph',
+                type: 'column'
+            },
+            title: {
+                text: 'Realtime Monitoring'
+            },
+            //subtitle: {
+            //    text: 'Current Date'
+            //},
+            xAxis: {
+                title: { text: 'Process' },
+                categories: [ 'PICKING', 'REPACK', 'SHIPPING']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Percentage (%)'
+                },
+                stackLabels: {
+                    style: {
+                        color: 'black'
+                    },
+                    enabled: true,
+                    formatter: function () {
+                        return this.total
+                    }
+                }
+            },
+            credits: { enabled: false },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+                //useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            series: []
+        }
+        GetGraph();
+    }
+
+    function GetGraph() {
+        $.getJSON('@Url.Action("GetGraph","Home")', null, function (data) {
+
+            var series = [];
+            $.each(data, function (index, item) {
+                series.push({
+                    name: item.Key,
+                    data: item.Value
+                });
+            });
+            options.series = series;
+            options.series[0].color = '#ef3a3a';
+            options.series[1].color = '#2f7ed8';
+            options.series[2].color = '#8bbc21';
+            //Create the chart
+            var chart = new Highcharts.Chart(options);
+        });
+    }
+
+    function SetGrid(data) {
+        $("#divGrid").html('<table id="grid_delay"></table><div id="pager_delay"></div>');
+        jQuery("#grid_delay").jqGrid({
+            url: '@Url.Action("GetGridDomesticData","Home")?' + data,
+            datatype: 'json',
+            mtype: 'POST',
+            colNames: ['Due Date', 'TAGNO', 'ITEM', 'ORDER QTY', 'CUST NO', 'CUST NAME', 'SHIP TO', 'CYCLE NO', 'ZONE', 'STATUS', 'SHIP VIA', 'Prepare', 'FINISHED TIME'],
+            colModel: [
+                 //{ name: 'data_tran_date', index: 'data_tran_date', align: 'center', sorttype: 'date', formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' }, datefmt: 'd/m/Y' },
+                 { name: 'duedate', index: 'duedate', align: 'center', width: 75 },
+                 { name: 'tagno', index: 'tagno', align: 'center', width: 85 },
+                 { name: 'item', index: 'item', align: 'left', width: 110 },
+                 { name: 'qty', index: 'qty', align: 'center', width: 65, formatter:'number' },
+                 { name: 'custno', index: 'custno', align: 'center', width: 55 },
+                 { name: 'custname', index: 'custname', align: 'left', width: 100 },
+                 { name: 'shipto', index: 'shipto', align: 'center', width: 55 },
+                 { name: 'cycle', index: 'cycle', align: 'center', width: 60 },
+                 { name: 'zone', index: 'zone', align: 'center', width: 40 },
+                 { name: 'status', index: 'status', align: 'center', width: 80 },
+                 { name: 'shipvia', index: 'shipvia', align: 'center', width: 55 },
+                 { name: 'prepare', index: 'prepare', align: 'center', width: 50 },
+                 { name: 'finish', index: 'finish', align: 'center', width: 100 }
+            ],
+            pager: jQuery('#pager_delay'),
+            rowNum: 10,
+            rowList: [10, 20, 50, 100],
+            autowidth: true,
+            //width: 500,
+            height: 'auto',
+            sortname: 'finish',
+            sortorder: "asc",
+            viewrecords: true,
+            //rownumbers: true,
+            //rownumWidth: '25px',
+            //caption: 'DELAY',
+            ajaxSelectOptions: { cache: false },
+            //gridview:true,
+            //loadonce: false,
+            scrollOffset: 0
+        });
+
+        jQuery("#grid_delay").jqGrid('navGrid', '#pager_delay',
+            { edit: false, add: false, del: false, search: false, view: false }, {}, {}, {}, {}, {});
+    }
+
+    function SetGrid1(data) {
+        $("#divGrid1").html('<table id="grid_delay1"></table><div id="pager_delay1"></div>');
+        jQuery("#grid_delay1").jqGrid({
+            url: '@Url.Action("GetGridOEMData","Home")?' + data,
+            datatype: 'json',
+            mtype: 'POST',
+            colNames: ['PROCESS','Due Date','TYPE', 'TAGNO', 'ITEM', 'ORDER QTY', 'CUST NO', 'CUST NAME', 'STATUS', 'FINISHED TIME'],
+            colModel: [
+                 //{ name: 'data_tran_date', index: 'data_tran_date', align: 'center', sorttype: 'date', formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' }, datefmt: 'd/m/Y' },
+                 { name: 'process', index: 'process', align: 'center', width: 80 },
+                 { name: 'trandate', index: 'trandate', align: 'center', width: 80 },
+                 { name: 'type', index: 'type', align: 'center', width: 80 },
+                 { name: 'tagno', index: 'tagno', align: 'center', width: 90 },
+                 { name: 'item', index: 'item', align: 'left', width: 120 },
+                 { name: 'qty', index: 'qty', align: 'center', width: 90 },
+                 { name: 'custno', index: 'custno', align: 'center', width: 80 },
+                 { name: 'custname', index: 'custname', align: 'left', width: 100 },
+                 //{ name: 'shipto', index: 'shipto', align: 'center', width: 55 },
+                 //{ name: 'cycle', index: 'cycle', align: 'center', width: 60 },
+                 //{ name: 'zone', index: 'zone', align: 'center', width: 40 },
+                 { name: 'status', index: 'status', align: 'center', width: 80 },
+                 //{ name: 'shipvia', index: 'shipvia', align: 'center', width: 55 },
+                 //{ name: 'prepare', index: 'prepare', align: 'center', width: 50 },
+                 { name: 'finish', index: 'finish', align: 'center', width: 100 }
+            ],
+            pager: jQuery('#pager_delay1'),
+            rowNum: 10,
+            rowList: [10, 20, 50, 100],
+            autowidth: true,
+            //width: 500,
+            height: 'auto',
+            sortname: 'finish',
+            sortorder: "asc",
+            viewrecords: true,
+            //rownumbers: true,
+            //rownumWidth: '25px',
+            //caption: 'DELAY',
+            ajaxSelectOptions: { cache: false },
+            //gridview:true,
+            //loadonce: false,
+            scrollOffset: 0
+        });
+
+        jQuery("#grid_delay1").jqGrid('navGrid', '#pager_delay1',
+            { edit: false, add: false, del: false, search: false, view: false }, {}, {}, {}, {}, {});
+    }
+
+    $(function () {
+        $.get('@Url.Action("GetTableData","Home")', "type=1", function (data) {
+            $("#divMR").append(data);
+        });
+        $.get('@Url.Action("GetTableData","Home")', "type=2", function (data) {
+            $("#divNonMR").append(data);
+        });
+        $.get('@Url.Action("GetTableData","Home")', "type=3", function (data) {
+            $("#divOEM").append(data);
+        });
+        $.get('@Url.Action("GetTableData","Home")', "type=4", function (data) {
+            $("#divNOK").append(data);
+        });
+        SetGraph();
+
+        //Set Dialog Option
+        $("#divDialog").dialog({
+            autoOpen: false,
+            width: 990,
+            height: 620
+        });
+        
+        $(document).on("click", ".delayDom", function (event) {
+            var process = $(this).attr("data1");
+            var type = $(this).attr("data2");
+            var obj = "process=" + process + "&type=" + type;
+            SetGrid(obj);
+            
+            $("#process").val(process);
+            $("#type").val(type);
+            $("#sidx").val("finish");
+            $("#sord").val("asc");
+            $("#divDialog").dialog("open");
+            return false;
+        });
+
+        //Set Dialog Option
+        $("#divDialog1").dialog({
+            autoOpen: false,
+            width: 990,
+            height: 620
+        });
+
+        $(document).on("click", ".delayExp", function (event) {
+            var process1 = $(this).attr("data1");
+            var type1 = $(this).attr("data2");
+            var obj = "process=" + process1 + "&type=" + type1;
+            SetGrid1(obj);
+
+            $("#process1").val(process1);
+            $("#type1").val(type1);
+            $("#sidx1").val("finish");
+            $("#sord1").val("asc");
+            $("#divDialog1").dialog("open");
+            return false;
+        });
+    });
+
+</script>
+  <div class="row-fluid">
+    <div class="span5">
+        <div class="row-fluid" id="divMR"></div>
+        <div class="row-fluid" id="divNonMR"></div>
+        <div class="row-fluid" id="divOEM"></div>
+        <div class="row-fluid" id="divNOK"></div>
+    </div>
+    <div class="span7">
+        <div id="divGraph" style="height: 600px;"></div>
+    </div>
+  </div>
+  
+<div id="divDialog" title="Domestic Delay Detail">
+    <div class="form-inline" style="text-align:right;">
+        @using (Html.BeginForm("GridExportToExcel", "Home", FormMethod.Post, new { id = "frmExport" }))
+        {
+            @Html.Hidden("sidx")
+            @Html.Hidden("sord")
+            @Html.Hidden("process")
+            @Html.Hidden("type")
+            <text><button type='submit' id='btnExport' class="btn btn-success"> Export</button></text>
+        }
+    </div>
+    <div id="divGrid"></div>
+</div>
+
+<div id="divDialog1" title="Export Delay Detail">
+    @*<div class="form-inline" style="text-align:right;">
+        @using (Html.BeginForm("GridExportToExcel1", "Home", FormMethod.Post, new { id = "frmExport1" }))
+        {
+            @Html.Hidden("sidx1")
+            @Html.Hidden("sord1")
+            @Html.Hidden("process1")
+            @Html.Hidden("type1")
+            <text><button type='submit' id='btnExport1' class="btn btn-success"> Export</button></text>
+        }
+    </div>*@
+    <div id="divGrid1"></div>
+</div>

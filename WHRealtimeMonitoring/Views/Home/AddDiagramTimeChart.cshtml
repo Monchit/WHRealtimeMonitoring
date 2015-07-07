@@ -1,0 +1,291 @@
+﻿
+<style type="text/css">
+    /* fix the size of the pager */
+    input.ui-pg-input { width: auto; padding-top:0; }
+    select.ui-pg-selbox {
+        padding: 0;
+        width: auto;
+    }
+    .ui-jqgrid tr.jqgrow td { white-space: normal !important; }
+</style>
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row-fluid">
+    <form id="formAdd" name="formAdd" action="#" method="post">
+        <table class='table table-condensed'>
+            <thead>
+                <tr>
+                    <th>Customer No.</th>
+                    <th>Customer Type</th>
+                    <th>Process No.</th>
+                    <th>Start Time</th>
+                    <th>Finish Time</th>
+                    <th>Cycle No.</th>
+                    <th>Prepare Date</th>
+                    <th>Ship to</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="custno" name="custno" class="input-small valid-number" maxlength="5" data-validation="length" data-validation-length="min5" /></td>
+                    <td><select id="custtype" class="input-medium">
+                        <option value="1">Milk Run</option>
+                        <option value="2">Non Milk Run</option>
+                        <option value="3">Export OEM</option>
+                        <option value="4">NOK</option>
+                        </select></td>
+                    <td><select id="processno" class="input-medium">
+                        <option value="1">PICKING</option>
+                        <option value="2">REPACK</option>
+                        <option value="3">SHIPPING</option>
+                        <option value="4">LOADING</option>
+                        </select></td>
+                    <td><input type="text" id="start" name="start" class="input-small timepicker" data-validation="required" maxlength="5" /></td>
+                    <td><input type="text" id="finish" name="finish" class="input-small timepicker" data-validation="required" maxlength="5" /></td>
+                    <td><input type="text" id="cycle" name="cycle" class="input-small valid-number" value="0" maxlength="1" data-validation="required" /></td>
+                    <td><input type="text" id="prepare" name="prepare" class="input-small valid-number" value="0" maxlength="1" data-validation="required" /></td>
+                    <td><input type="text" id="shipto" name="shipto" class="input-small valid-number" value="0" data-validation="required" /></td>
+                    <td><input class="btn btn-primary" type="submit" id="btAdd" name="btAdd" value="Add Data" /></td>
+                    <td><button class="btn btn-danger" type="reset" id="btReset" name="btReset" >Cancel</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="row-fluid">
+    <div class="span9 form-inline">
+        Customer Type : <select id="scusttype" name="scusttype" class="input-medium">
+                    <option value="">-- All --</option>
+                    <option value="1">Milk Run</option>
+                    <option value="2">Non Milk Run</option>
+                    <option value="3">Export OEM</option>
+                    <option value="4">NOK</option>
+                    </select>
+        Customer No. : <input type="text" id="scustno" name="scustno" class="input-medium valid-number" maxlength="5" />
+        <button class="btn btn-inverse" type="button" id="btSearch" name="btSearch">Search</button>
+    </div>
+    <div class="span3" style="text-align:right;">
+        @using (Html.BeginForm("GridExportTimeChart", "Home", FormMethod.Post, new { id = "frmExport" }))
+        {
+            @Html.Hidden("sidx")
+            @Html.Hidden("sord")
+            @Html.Hidden("xcusttype")
+            @Html.Hidden("xcustno")
+            <text><button class="btn btn-success" type="submit" id="btExport" name="btExport">Export to Excel</button></text>
+        }
+        
+    </div>
+</div>
+<br />
+<div id="divGrid"></div>
+
+@section scripts{
+    <script type="text/javascript">
+        function SetGrid(data) {
+            $("#divGrid").html('<table id="grid_timechart"></table><div id="pager_timechart"></div>');
+            jQuery("#grid_timechart").jqGrid({
+                url: '@Url.Action("GetGridTimeChart","Home")?' + data,
+                datatype: 'json',
+                mtype: 'POST',
+                colNames: ['CUST NO', 'PROCESS', 'START TIME', 'FINISHED TIME', 'CYCLE NO', 'PREPARE DATE', 'SHIP TO', 'UPDATE DATE', 'UPDATE TIME', 'USER UPDATE', 'CUST TYPE', 'EDIT', 'DELETE'],
+                colModel: [
+                     { name: 'cust_no', index: 'cust_no', align: 'center' },
+                     { name: 'process_no', index: 'process_no', align: 'center' },
+                     { name: 'start_time', index: 'start_time', align: 'center' },
+                     { name: 'finished_time', index: 'finished_time', align: 'center' },
+                     { name: 'cycle_no', index: 'cycle_no', align: 'center' },
+                     { name: 'prepare_n_date', index: 'prepare_n_date', align: 'center' },
+                     { name: 'shipto', index: 'shipto', align: 'center' },
+                     { name: 'update_date', index: 'update_date', align: 'center' },
+                     { name: 'update_time', index: 'update_time', align: 'center' },
+                     { name: 'username_id', index: 'username_id', align: 'center' },
+                     { name: 'cust_type', index: 'cust_type', align: 'center' },
+                     { name: 'edit', index: 'edit', align: 'center', width: 60 },
+                     { name: 'delete', index: 'delete', align: 'center', width: 60 }
+                ],
+                pager: jQuery('#pager_timechart'),
+                rowNum: 10,
+                rowList: [10, 20, 50, 100],
+                autowidth: true,
+                //width: 500,
+                height: 'auto',
+                sortname: 'cust_no',
+                sortorder: "asc",
+                viewrecords: true,
+                rownumbers: true,
+                rownumWidth: '25px',
+                //caption: 'DELAY',
+                ajaxSelectOptions: { cache: false },
+                //gridview:true,
+                //loadonce: false,
+                scrollOffset: 0
+
+            });
+            
+            $("#sidx").val("cust_no");
+            $("#sord").val("asc");
+
+            jQuery("#grid_timechart").jqGrid('navGrid', '#pager_timechart',
+                { edit: false, add: false, del: false, search: false, view: false }, {}, {}, {}, {}, {});
+        }
+        
+        function enableForm() {
+            $("#custno").removeAttr("disabled");
+            $("#processno").removeAttr("disabled");
+            $("#cycle").removeAttr("disabled");
+            $("#shipto").removeAttr("disabled");
+        }
+
+        function clearForm() {
+            $("#custno").val("");
+            $("#custtype").val("1");
+            $("#processno").val("1");
+            $("#start").val("");
+            $("#finish").val("");
+            $("#cycle").val("0");
+            $("#prepare").val("0");
+            $("#shipto").val("0");
+        }
+
+        $(document).ready(function () {
+            $(".timepicker").timepicker({
+                timeFormat: 'HH:mm',
+                stepMinute: 5
+            });
+            $('input.valid-number').bind('keypress', function (e) {
+                return (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) ? false : true;
+            });
+            SetGrid();
+
+            $("#btSearch").click(function () {
+                var scustno = $("#scustno").val();
+                var scusttype = $("#scusttype").val();
+                var obj = "custno=" + scustno + "&custtype=" + scusttype;
+                $("#xcustno").val(scustno);
+                $("#xcusttype").val(scusttype);
+                SetGrid(obj);
+            });
+
+            //$("#frmExport").submit(function () {
+            //    var grid = $("#grid_timechart");
+            //    $("#sidx").val(grid.getGridParam('sordname'));
+            //    $("#sord").val(grid.getGridParam('sordorder'));
+            //});
+
+            $("#btReset").click(function () {
+                $("#btAdd").val("Add Data");
+                enableForm();
+            });
+
+            $(document).on("click", ".btGet", function () {
+                var $btn = $(this);
+                $.get("@Url.Action("GetTimeChart","Home")",
+                    "cust=" + $btn.attr("data-custno") + "&process=" + $btn.attr("data-process") +
+                    "&cycle=" + $btn.attr("data-cycle") + "&shipto=" + $btn.attr("data-shipto"), function (data) {
+
+                    $("#custno").val(data.cust_no).attr("disabled", "disabled");
+                    $("#custtype").val(data.cust_type);
+                    $("#processno").val(data.process_no).attr("disabled", "disabled");
+                    $("#start").val(data.start_time);
+                    $("#finish").val(data.finished_time);
+                    $("#cycle").val(data.cycle_no).attr("disabled", "disabled");
+                    $("#prepare").val(data.prepare_n_date);
+                    $("#shipto").val(data.shipto).attr("disabled", "disabled");
+
+                    $("#btAdd").val("Update");
+                });
+            });
+
+            $(document).on("click", ".btDel", function () {
+                var obj = new Object();
+                obj.custno = $(this).attr("data-custno");
+                obj.process = $(this).attr("data-process");
+                obj.cycle = $(this).attr("data-cycle");
+                obj.shipto = $(this).attr("data-shipto");
+
+                if (confirm("Are you sure to Delete ?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("DeleteTimeChart","Home")",
+                        data: obj,
+                        dataType: "json",
+                        success: function (data) {
+                            alert("Delete Success");
+                            SetGrid();
+                            //noty({ text: data, layout: 'center', type: 'information', timeout: 3000 });
+                        },
+                        error: function (request, status, err) {
+                            alert("Request:" + request + ", Status:" + status + ", Error:" + err);
+                            //noty({ text: 'Request:' + request + ', Status:' + status + ', Error:' + err, layout: 'center', type: 'error' });
+                        }
+                    });
+                }
+                return false;
+            });
+
+            $.validationSetup({
+                form: '#formAdd',
+                validateOnBlur: false, // disable validation when input looses focus
+                errorMessagePosition : 'top', // Instead of 'element' which is default
+                //scrollToTopOnError : true, // Set this property to true if you have a long form
+                onSuccess : function() {
+                    //alert('The form is valid!');
+                    var obj = new Object();
+                    obj.custno = $("#custno").val();
+                    obj.custtype = $("#custtype").val();
+                    obj.process = $("#processno").val();
+                    obj.start = $("#start").val();
+                    obj.finish = $("#finish").val();
+                    obj.cycle = $("#cycle").val();
+                    obj.prepare = $("#prepare").val();
+                    obj.shipto = $("#shipto").val();
+                    //alert("555");
+                    if ($("#btAdd").val() == "Add Data") {
+                        //alert("Add Data");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("AddTimeChart","Home")",
+                            data: obj,
+                            dataType: "json",
+                            success: function (data) {
+                                enableForm();
+                                SetGrid();
+                                alert("Add Success");
+                                clearForm();
+                                //noty({ text: 'Add Success', layout: 'center', type: 'success', timeout: 3000 });
+                            },
+                            error: function (request, status, err) {
+                                alert("Request:" + request + ", Status:" + status + ", Error:" + err);
+                                //noty({ text: 'Request:' + request + ', Status:' + status + ', Error:' + err, layout: 'center', type: 'error' });
+                            }
+                        });
+                    } else if ($("#btAdd").val() == "Update") {
+                        //alert("Update");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("UpdateTimeChart","Home")",
+                            data: obj,
+                            dataType: "json",
+                            success: function (data) {
+                                enableForm();
+                                SetGrid();
+                                alert("Update Success");
+                                clearForm();
+                                //noty({ text: 'Add Success', layout: 'center', type: 'success', timeout: 3000 });
+                            },
+                            error: function (request, status, err) {
+                                alert("Request:" + request + ", Status:" + status + ", Error:" + err);
+                                //noty({ text: 'Request:' + request + ', Status:' + status + ', Error:' + err, layout: 'center', type: 'error' });
+                            }
+                        });
+                        $("#btAdd").val("Add Data");
+                    }
+                    return false; // Will stop the submission of the form
+                }
+            });
+
+        });
+    </script>
+}
