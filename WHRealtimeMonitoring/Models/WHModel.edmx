@@ -4,15 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="loginicsModel.Store" Alias="Self" Provider="Devart.Data.PostgreSql" ProviderManifestToken="PostgreSQL" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="loginicsModel.Store" Alias="Self" Provider="Devart.Data.PostgreSql" ProviderManifestToken="PostgreSQL" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="loginicsModelStoreContainer">
-          <EntitySet Name="tm_diagram_time_chart" EntityType="loginicsModel.Store.tm_diagram_time_chart" store:Type="Tables" Schema="public" />
-          <EntitySet Name="tm_item_summary" EntityType="loginicsModel.Store.tm_item_summary" store:Type="Tables" Schema="public" />
-          <EntitySet Name="tm_user" EntityType="loginicsModel.Store.tm_user" store:Type="Tables" Schema="public" />
-          <EntitySet Name="tt_packing_order_nics" EntityType="loginicsModel.Store.tt_packing_order_nics" store:Type="Tables" Schema="public" />
-          <EntitySet Name="tt_picking_order_nics" EntityType="loginicsModel.Store.tt_picking_order_nics" store:Type="Tables" Schema="public" />
-          <EntitySet Name="tt_realtime_monitoring" EntityType="loginicsModel.Store.tt_realtime_monitoring" store:Type="Tables" Schema="public" />
-          <EntitySet Name="w_zone" EntityType="loginicsModel.Store.w_zone" store:Type="Tables" Schema="public" />
+          <EntitySet Name="tm_diagram_time_chart" EntityType="loginicsModel.Store.tm_diagram_time_chart" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tm_item_summary" EntityType="loginicsModel.Store.tm_item_summary" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tm_user" EntityType="loginicsModel.Store.tm_user" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tt_packing_order_nics" EntityType="loginicsModel.Store.tt_packing_order_nics" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tt_picking_order_nics" EntityType="loginicsModel.Store.tt_picking_order_nics" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="tt_realtime_monitoring" EntityType="loginicsModel.Store.tt_realtime_monitoring" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="w_zone" EntityType="loginicsModel.Store.w_zone" store:Type="Tables" Schema="public" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
         </EntityContainer>
         <EntityType Name="tm_diagram_time_chart">
           <Key>
@@ -224,7 +224,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="loginicsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="loginicsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="loginicsEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="tm_item_summary" EntityType="loginicsModel.tm_item_summary" />
           <EntitySet Name="tm_user" EntityType="loginicsModel.tm_user" />
@@ -672,6 +672,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams />
   </Designer>
 </edmx:Edmx>
